@@ -11,7 +11,17 @@ https://github.com/vitaly-chibrikov/otus_java_2017_11
 
 public class MainStream {
     public static void main(String[] args) throws IOException {
-        String salt = "Speak, friend, and enter.";
+        String salt = "Дмитрий Грушецкий\u200BRWwViFacrskCIR4rP5cpUpM9l6tzfwO9\uFEFF\n" +
+                "\n" +
+                "Iosif Yusufov\u200Bя\uFEFF\n" +
+                "\n" +
+                "Iosif Yusufov\u200B))\uFEFF\n" +
+                "\n" +
+                "Imya Familiya\u200Bпобедит Михаил и\uFEFF Денис\n" +
+                "\n" +
+                "DukeSpontaneous\u200BФункциональщина\uFEFF некая в столбик.\n" +
+                "\n" +
+                "Дмитрий Грушецкий\u200Bпобедят два почтовых адреса\uFEFF";
 
         Files.lines(Paths.get("sql-54.csv"))
                 .map(line -> line.replace("\"", ""))
