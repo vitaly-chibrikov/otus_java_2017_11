@@ -7,4 +7,8 @@ Vitaly Chibrikov (Виталий Чибриков)
 
 chibrikov@otus.ru
 
+Oleg Klimakov (Олег Климаков)
+
+klimakov@otus.ru
+
 
