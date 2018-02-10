@@ -15,14 +15,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-        strong();
+        //strong();
         //weak();
         //soft();
-        //phantom();
+        phantom();
     }
 
     private static void strong() {
-        int size = 1000;
+        int size = 1010;
         List<BigObject> references = new ArrayList<>(size);
 
         for (int k = 0; k < size; k++) {
@@ -34,7 +34,7 @@ public class Main {
     }
 
     private static void weak() {
-        int size = 1000;
+        int size = 58;
         List<WeakReference<BigObject>> references = new ArrayList<>(size);
 
         for (int k = 0; k < size; k++) {
@@ -43,7 +43,7 @@ public class Main {
             references.add(reference);
         }
 
-        System.gc();
+        //System.gc();
 
         int sum = 0;
         for (int k = 0; k < size; k++) {

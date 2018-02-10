@@ -3,7 +3,10 @@ package ru.otus.l111.ehcache;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.management.ManagementService;
 
+import javax.management.MBeanServer;
+import java.lang.management.ManagementFactory;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -24,9 +27,12 @@ public class EhcaheMain {
     }
 
     private void run() throws InterruptedException {
-        cacheNamesExample();
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        ManagementService.registerMBeans(manager, mBeanServer, false, true, false, true);
+
+        //cacheNamesExample();
         //evictedExample();
-        //lifeExample();
+        lifeExample();
         //idleExample();
     }
 
@@ -46,17 +52,32 @@ public class EhcaheMain {
         System.out.println("Evicted count: " + testCache.getStatistics().cacheEvictedCount());
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     private void lifeExample() throws InterruptedException {
         System.out.println("\nLife example\n");
         Cache testCache = EhcacheHelper.createLifeCache(manager, "lifeCache");
-        testCache.put(new Element(0, "String: 0"));
-        testCache.get(0);
-        System.out.println("Hit count: " + testCache.getStatistics().cacheHitCount());
-        System.out.println("Miss count: " + testCache.getStatistics().cacheMissCount());
-        Thread.sleep(TimeUnit.SECONDS.toMillis(EhcacheHelper.LIFE_TIME_SEC) + 1);
-        testCache.get(0);
-        System.out.println("Hit count: " + testCache.getStatistics().cacheHitCount());
-        System.out.println("Miss count: " + testCache.getStatistics().cacheMissCount());
+
+        new Thread(() -> {
+            int index = 0;
+            while (true) {
+                testCache.put(new Element(index, "String: " + index));
+                index++;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        int index = 0;
+        while (true) {
+            testCache.get(index);
+            System.out.println("Hit count: " + testCache.getStatistics().cacheHitCount());
+            System.out.println("Miss count: " + testCache.getStatistics().cacheMissCount());
+            Thread.sleep(110);
+            index++;
+        }
     }
 
     private void idleExample() throws InterruptedException {

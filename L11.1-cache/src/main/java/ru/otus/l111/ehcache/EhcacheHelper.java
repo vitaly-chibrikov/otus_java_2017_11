@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  */
 @SuppressWarnings("SameParameterValue")
 class EhcacheHelper {
-    static final int MAX_ENTRIES = 5;
+    static final int MAX_ENTRIES = 50;
     static final int LIFE_TIME_SEC = 1;
     static final int IDLE_TIME_SEC = 1;
 
