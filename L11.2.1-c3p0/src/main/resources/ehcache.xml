@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ehcache>
+    <defaultCache maxEntriesLocalHeap="10" eternal="false" timeToIdleSeconds="600" timeToLiveSeconds="600">
+
+    </defaultCache>
+
+    <cache name="ru.otus.base.dataSets.UserDataSet"
+           maxEntriesLocalHeap="100"
+           timeToLiveSeconds="5">
+    </cache>
+    <cache name="ru.otus.base.dataSets.UserDataSet.phones"
+           maxEntriesLocalHeap="100"
+           eternal="false"
+           timeToIdleSeconds="2">
+    </cache>
+    <cache name="ru.otus.base.dataSets.PhoneDataSet"
+           maxEntriesLocalHeap="100"
+           eternal="true">
+    </cache>
+</ehcache>

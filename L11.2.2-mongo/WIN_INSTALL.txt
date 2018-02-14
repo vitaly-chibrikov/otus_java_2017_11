@@ -1,0 +1,7 @@
+download https://www.mongodb.com/download-center#community
+run .msi
+create C:/data/db
+run "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe"
+
+terminal:
+run "C:\Program Files\MongoDB\Server\3.6\bin\mongo.exe"
