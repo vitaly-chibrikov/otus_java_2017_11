@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app>
+
+    <display-name>L13.1.3</display-name>
+    <description>Example of war file</description>
+
+    <servlet>
+        <servlet-name>timerServlet</servlet-name>
+        <servlet-class>ru.otus.servlet.TimerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>timerServlet</servlet-name>
+        <url-pattern>/timer</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
