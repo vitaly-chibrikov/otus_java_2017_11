@@ -83,12 +83,15 @@ public class SocketMsgWorker implements MsgWorker {
                 stringBuilder.append(inputLine);
                 if (inputLine.isEmpty()) { //empty line is the end of the message
                     String json = stringBuilder.toString();
+                    if (json.isEmpty())
+                        continue;
                     Msg msg = getMsgFromJSON(json);
-                    input.add(msg);
+                    if (msg != null)
+                        input.add(msg);
                     stringBuilder = new StringBuilder();
                 }
             }
-        } catch (IOException | ParseException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             logger.log(Level.SEVERE, "ReceiveMessage: " + e.getMessage());
         } finally {
             close();
@@ -109,11 +112,16 @@ public class SocketMsgWorker implements MsgWorker {
         }
     }
 
-    private static Msg getMsgFromJSON(String json) throws ParseException, ClassNotFoundException {
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
-        String className = (String) jsonObject.get(Msg.CLASS_NAME_VARIABLE);
-        Class<?> msgClass = Class.forName(className);
-        return (Msg) new Gson().fromJson(json, msgClass);
+    private static Msg getMsgFromJSON(String json) throws ClassNotFoundException {
+        try {
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(json);
+            String className = (String) jsonObject.get(Msg.CLASS_NAME_VARIABLE);
+            Class<?> msgClass = Class.forName(className);
+            return (Msg) new Gson().fromJson(json, msgClass);
+        } catch (ParseException e) {
+            logger.log(Level.SEVERE, "Parsing error: " + e.getMessage());
+            return null;
+        }
     }
 }

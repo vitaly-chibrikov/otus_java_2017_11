@@ -7,8 +7,8 @@ import ru.otus.l161.channel.SocketMsgWorker;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -29,7 +29,7 @@ public class BlockingEchoSocketMsgServer {
 
     public BlockingEchoSocketMsgServer() {
         executor = Executors.newFixedThreadPool(THREADS_NUMBER);
-        workers = new ArrayList<>();
+        workers = new CopyOnWriteArrayList<>();
     }
 
     @Blocks
